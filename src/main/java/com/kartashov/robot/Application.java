@@ -14,8 +14,8 @@ public class Application {
         for (String path : args) {
             try (InputStream in = new FileInputStream(path)) {
                 CommandQueue queue = new CommandQueue(in);
-                Robot robot = new Robot(queue, new PlaceFirstRule(), new NoOverstepRule(5, 5));
-                robot.execute();
+                Robot robot = new Robot();
+                robot.execute(queue, new PlaceFirstRule(), new NoOverstepRule(5, 5));
             }
         }
     }
