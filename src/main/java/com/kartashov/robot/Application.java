@@ -13,9 +13,9 @@ public class Application {
     public static void main(String[] args) throws Exception {
         for (String path : args) {
             try (InputStream in = new FileInputStream(path)) {
+                Robot robot = new Robot(new PlaceFirstRule(), new NoOverstepRule(5, 5));
                 CommandQueue queue = new CommandQueue(in);
-                Robot robot = new Robot();
-                robot.execute(queue, new PlaceFirstRule(), new NoOverstepRule(5, 5));
+                robot.execute(queue);
             }
         }
     }

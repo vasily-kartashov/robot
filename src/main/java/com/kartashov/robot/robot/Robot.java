@@ -5,9 +5,14 @@ import com.kartashov.robot.rules.Rule;
 
 public class Robot {
 
+    private final Rule[] rules;
     private Position position = new Position();
-    
-    public void execute(Iterable<Command> commands, Rule... rules) {
+
+    public Robot(Rule... rules) {
+        this.rules = rules;
+    }
+
+    public void execute(Iterable<Command> commands) {
         commands: for (Command command : commands) {
             Position newPosition = command.execute(position);
             for (Rule rule : rules) {

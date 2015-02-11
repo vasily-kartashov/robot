@@ -16,8 +16,8 @@ public class CommandQueueTest {
     private Position execute(String example) throws IOException {
         InputStream in = getClass().getClassLoader().getResourceAsStream(example);
         CommandQueue queue = new CommandQueue(in);
-        Robot robot = new Robot();
-        robot.execute(queue, new PlaceFirstRule(), new NoOverstepRule(5, 5));
+        Robot robot = new Robot(new PlaceFirstRule(), new NoOverstepRule(5, 5));
+        robot.execute(queue);
         return robot.getPosition();
     }
 
