@@ -8,34 +8,48 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class CommandQueueTest {
 
-    @Test
-    public void testParser() throws IOException {
-        InputStream in = getClass().getClassLoader().getResourceAsStream("example1.txt");
+    private Position execute(String example) throws IOException {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(example);
         CommandQueue queue = new CommandQueue(in);
-        Iterator<Command> iterator = queue.iterator();
-
-        assertTrue(iterator.next() instanceof Place);
-        assertTrue(iterator.next() instanceof Move);
-        assertTrue(iterator.next() instanceof Left);
-        assertTrue(iterator.next() instanceof Move);
-        assertTrue(iterator.next() instanceof Move);
-        assertTrue(iterator.next() instanceof Report);
-        assertFalse(iterator.hasNext());
-
         Robot robot = new Robot(queue, new PlaceFirstRule(), new NoOverstepRule(5, 5));
         robot.execute();
+        return robot.getPosition();
+    }
 
-        Position position = robot.getPosition();
+    @Test
+    public void testExample1() throws IOException {
+        Position position = execute("example1.txt");
         assertEquals(3, position.getX());
         assertEquals(0, position.getY());
         assertEquals(Position.Orientation.EAST, position.getOrientation());
+    }
+
+    @Test
+    public void testExample2() throws IOException {
+        Position position = execute("example2.txt");
+        assertEquals(0, position.getX());
+        assertEquals(1, position.getY());
+        assertEquals(Position.Orientation.NORTH, position.getOrientation());
+    }
+
+    @Test
+    public void testExample3() throws IOException {
+        Position position = execute("example3.txt");
+        assertEquals(0, position.getX());
+        assertEquals(0, position.getY());
+        assertEquals(Position.Orientation.WEST, position.getOrientation());
+    }
+
+    @Test
+    public void testExample4() throws IOException {
+        Position position = execute("example4.txt");
+        assertEquals(3, position.getX());
+        assertEquals(3, position.getY());
+        assertEquals(Position.Orientation.NORTH, position.getOrientation());
     }
 }
