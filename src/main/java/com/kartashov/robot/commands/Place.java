@@ -12,6 +12,6 @@ public class Place implements Command {
 
     @Override
     public Position execute(Position position) {
-        return this.position;
+        return this.position; // ignore current position
     }
 }

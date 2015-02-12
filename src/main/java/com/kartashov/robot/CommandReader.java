@@ -1,5 +1,6 @@
-package com.kartashov.robot.commands;
+package com.kartashov.robot;
 
+import com.kartashov.robot.commands.*;
 import com.kartashov.robot.robot.Position;
 
 import java.io.BufferedReader;
@@ -13,11 +14,11 @@ import java.util.List;
 
 import static com.kartashov.robot.robot.Position.Orientation;
 
-public final class CommandQueue implements Iterable<Command> {
+public final class CommandReader implements Iterable<Command> {
 
     private List<Command> commands = new ArrayList<>();
 
-    public CommandQueue(InputStream in) throws IOException {
+    public CommandReader(InputStream in) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -45,10 +46,6 @@ public final class CommandQueue implements Iterable<Command> {
                 }
             }
         }
-    }
-
-    public CommandQueue(Command... commands) {
-        this.commands = Arrays.asList(commands);
     }
 
     @Override

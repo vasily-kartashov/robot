@@ -1,5 +1,6 @@
 package com.kartashov.robot.commands;
 
+import com.kartashov.robot.CommandReader;
 import com.kartashov.robot.robot.Position;
 import com.kartashov.robot.robot.Robot;
 import com.kartashov.robot.rules.NoOverstepRule;
@@ -15,7 +16,7 @@ public class CommandQueueTest {
 
     private Position execute(String example) throws IOException {
         InputStream in = getClass().getClassLoader().getResourceAsStream(example);
-        CommandQueue queue = new CommandQueue(in);
+        CommandReader queue = new CommandReader(in);
         Robot robot = new Robot(new PlaceFirstRule(), new NoOverstepRule(5, 5));
         robot.execute(queue);
         return robot.getPosition();

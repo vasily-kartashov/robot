@@ -7,6 +7,6 @@ public class Report implements Command {
     @Override
     public Position execute(Position position) {
         System.out.println(position.toString());
-        return position;
+        return position; // do not update the position
     }
 }

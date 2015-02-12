@@ -1,6 +1,5 @@
 package com.kartashov.robot;
 
-import com.kartashov.robot.commands.CommandQueue;
 import com.kartashov.robot.robot.Robot;
 import com.kartashov.robot.rules.NoOverstepRule;
 import com.kartashov.robot.rules.PlaceFirstRule;
@@ -14,7 +13,7 @@ public class Application {
         for (String path : args) {
             try (InputStream in = new FileInputStream(path)) {
                 Robot robot = new Robot(new PlaceFirstRule(), new NoOverstepRule(5, 5));
-                CommandQueue queue = new CommandQueue(in);
+                CommandReader queue = new CommandReader(in);
                 robot.execute(queue);
             }
         }
